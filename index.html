@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
@@ -72,69 +73,93 @@
 </body>
 
 <script>
-  // Data retrieved from https://netmarketshare.com
-  Highcharts.chart('container', {
-    chart: {
-      plotBackgroundColor: null,
-      plotBorderWidth: null,
-      plotShadow: false,
-      type: 'pie'
-    },
-    title: {
-      text: 'Browser market shares in May, 2020'
-    },
-    tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-      point: {
-        valueSuffix: '%'
-      }
-    },
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+    // Data retrieved from https://netmarketshare.com
+
+
+    $.ajax({
+        url: 'https://emz9k68j3e.execute-api.us-east-1.amazonaws.com/default/weather',
+        // url: 'https://wilpbqofq7.execute-api.eu-north-1.amazonaws.com/default/hafta7',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        type: "POST", /* or type:"GET" or type:"PUT" */
+        dataType: "json",
+        data: {
+        },
+        success: function (result) {
+            // console.log(result);
+
+            Highcharts.chart('container', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Browser market shares in May, 2020'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Brands',
+                    colorByPoint: true,
+                    data: result
+                    // data: [{
+                    //     name: 'Chrome',
+                    //     y: 70.67,
+                    //     sliced: true,
+                    //     selected: true
+                    // }, {
+                    //     name: 'Edge',
+                    //     y: 14.77
+                    // },  {
+                    //     name: 'Firefox',
+                    //     y: 4.86
+                    // }, {
+                    //     name: 'Safari',
+                    //     y: 2.63
+                    // }, {
+                    //     name: 'Internet Explorer',
+                    //     y: 1.53
+                    // },  {
+                    //     name: 'Opera',
+                    //     y: 1.40
+                    // }, {
+                    //     name: 'Sogou Explorer',
+                    //     y: 0.84
+                    // }, {
+                    //     name: 'QQ',
+                    //     y: 0.51
+                    // }, {
+                    //     name: 'Other',
+                    //     y: 2.6
+                    // }]
+                }]
+            });
+
+        },
+        error: function () {
+            console.log("error");
         }
-      }
-    },
-    series: [{
-      name: 'Brands',
-      colorByPoint: true,
-      data: [{
-        name: 'Chrome',
-        y: 70.67,
-        sliced: true,
-        selected: true
-      }, {
-        name: 'Edge',
-        y: 14.77
-      },  {
-        name: 'Firefox',
-        y: 4.86
-      }, {
-        name: 'Safari',
-        y: 2.63
-      }, {
-        name: 'Internet Explorer',
-        y: 1.53
-      },  {
-        name: 'Opera',
-        y: 1.40
-      }, {
-        name: 'Sogou Explorer',
-        y: 0.84
-      }, {
-        name: 'QQ',
-        y: 0.51
-      }, {
-        name: 'Other',
-        y: 2.6
-      }]
-    }]
-  });
+    });
+
+
 </script>
 </html>
