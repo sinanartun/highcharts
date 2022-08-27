@@ -77,15 +77,13 @@
 
 
     $.ajax({
-        url: 'https://emz9k68j3e.execute-api.us-east-1.amazonaws.com/default/weather',
+        url: 'https://51d6htp2t5.execute-api.eu-central-1.amazonaws.com/default/data',
         // url: 'https://wilpbqofq7.execute-api.eu-north-1.amazonaws.com/default/hafta7',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json\n'
         },
-        type: "POST", /* or type:"GET" or type:"PUT" */
+        type: "GET", /* or type:"GET" or type:"PUT" */
         dataType: "json",
-        data: {
-        },
         success: function (result) {
             // console.log(result);
 
